@@ -1,7 +1,7 @@
 const draggables = document.querySelectorAll(".task");
-const droppables = document.querySelectorAll(".swim-lane");
+const droppables = document.querySelectorAll(".task-list");
 
-// ".task" elements are draggable
+// Add event listeners for ".task" elements (i.e. draggable)
 draggables.forEach((task) => {
   task.addEventListener("dragstart", () => {
     task.classList.add("is-dragging");
@@ -11,30 +11,30 @@ draggables.forEach((task) => {
   });
 });
 
-// ".swim-lane" elements are droppable
-droppables.forEach((zone) => {
-  zone.addEventListener("dragover", (e) => {
+// Add event listeners for ".task-list" elements (i.e. droppable)
+droppables.forEach((list) => {
+  list.addEventListener("dragover", (e) => {
     e.preventDefault();
 
-    const bottomTask = getClosetTask(zone, e.clientY);
+    const bottomTask = getClosetTask(list, e.clientY);
     const currTask = document.querySelector(".is-dragging");
 
     if (!bottomTask) {
-      zone.appendChild(currTask);
+      list.appendChild(currTask);
     } else {
-      zone.insertBefore(currTask, bottomTask);
+      list.insertBefore(currTask, bottomTask);
     }
   });
 });
 
-const getClosetTask = (zone, mouseY) => {
-  const elements = zone.querySelectorAll(".task:not(.is-dragging)");
+const getClosetTask = (list, mouseY) => {
+  const tasks = list.querySelectorAll(".task:not(.is-dragging)");
 
   let closestTask = null;
   let closestOffset = Number.NEGATIVE_INFINITY;
 
   // Find the closest task to the mouse pointer
-  elements.forEach((task) => {
+  tasks.forEach((task) => {
     const { top } = task.getBoundingClientRect();
 
     const offset = mouseY - top;

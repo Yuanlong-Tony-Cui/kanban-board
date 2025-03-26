@@ -5,15 +5,16 @@ const todoLane = document.getElementById("todo-lane");
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();
-  const todoText = input.value;
 
+  // Get input value
+  const todoText = input.value;
   if (!todoText) return;
 
-  // Create new element
-  const newTask = document.createElement("p");
-  newTask.classList.add("task"); // class="task"
-  newTask.setAttribute("draggable", "true"); // draggable="true"
-  newTask.innerText = todoText;
+  // Create new TODO task element
+  const newTask = document.createElement("p");  // <p></p>
+  newTask.classList.add("task");                // class="task"
+  newTask.setAttribute("draggable", "true");    // draggable="true"
+  newTask.innerText = todoText;                 // <p>...</p>
 
   // Add event listeners
   newTask.addEventListener("dragstart", () => {
@@ -23,8 +24,9 @@ form.addEventListener("submit", (e) => {
     newTask.classList.remove("is-dragging");
   });
 
-  // Add element to desired location
+  // Add task to the TODO section
   todoLane.appendChild(newTask);
 
-  input.value = ""; // Clear input
+  // Clear input
+  input.value = "";
 });
